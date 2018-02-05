@@ -26,7 +26,7 @@ CC= g++
 EXECUTABLE= tetris
 
 # Linux (default)
-CFLAGS= -O0 -g -Wall -pedantic -Wno-unused-result -DGL_GLEXT_PROTOTYPES
+CFLAGS= -O3 -g -Wall -pedantic -DGL_GLEXT_PROTOTYPES
 LDFLAGS= -lGL -lglut -lGLEW -lXext -lX11 -lm
 
 # OS X
@@ -49,7 +49,7 @@ tetris: all
 rebuild: clean all
 
 depend:
-	$(CC) -M $(SOURCE) > depend
+	$(CC) -MM -MT $(SOURCE) > depend
 
 $(OBJECT):
 	$(CC) $(CFLAGS) $(INCLUDEFLAG) -c -o $@ $(@:.o=.cpp)
