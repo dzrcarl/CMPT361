@@ -83,10 +83,10 @@ init( void )
     // initializing Vertical lines
     for(int i = 0; i < NumVLine*2; i++){
         if(i%2 == 0){
-            VLinePoints[i] = vec2( -1*Height/2 , Width/2.0 - BlockWidth*(i/2) );
+            VLinePoints[i] = vec2( Width/2.0 - BlockWidth*(i/2) , -1*Height/2 );
         }
         else{
-            VLinePoints[i] = vec2( Height/2 , Width/2.0 - BlockWidth*((i-1)/2) );
+            VLinePoints[i] = vec2( Width/2.0 - BlockWidth*((i-1)/2), Height/2 );
         }
 	cout << VLinePoints[i] << endl;
         VLineColor[i] = base_colors[3];
@@ -142,7 +142,7 @@ init( void )
     glEnableVertexAttribArray( loc2 );
     glVertexAttribPointer( loc2, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0) );
 
-    GLuint vColor1 = glGetAttribLocation( program2, "vColor" );
+    GLuint vColor2 = glGetAttribLocation( program2, "vColor" );
     glEnableVertexAttribArray( vColor2 );
     glVertexAttribPointer( vColor2, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(VLinePoints)) );
 
