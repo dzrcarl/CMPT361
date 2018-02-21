@@ -36,10 +36,10 @@ init( void )
     
     //Vertex positions for three triangles
     // Three triangles forming a simple Gasket
-    points[0] = vec2( -0.5, 0.5 );
-    points[1] = vec2( 0.5, 0.5 );
-    points[2] = vec2( -0.5, -0.5 );
-    points[3] = vec2( 0.5, -0.5 );
+    points[0] = vec2( -0.17, 0.09 );
+    points[1] = vec2( 0.17, 0.09 );
+    points[2] = vec2( -0.17, -0.09 );
+    points[3] = vec2( 0.17, -0.09 );
 
 
     //color stuff for each vertex of each of the triangles
@@ -275,7 +275,7 @@ main( int argc, char **argv )
 
     //Change the size of the screen here. Keep in mind that the coordinates will also change accordingly
     //so, if you want to keep your points on the rendering canvas undisturbed you need a square screen.
-    glutInitWindowSize( 300, 600 );
+    glutInitWindowSize( 340, 640 );
 
     // If you are using freeglut, the next two lines will check if 
     // the code is truly 3.2. Otherwise, comment them out
