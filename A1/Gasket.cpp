@@ -122,6 +122,30 @@ init( void )
     glEnableVertexAttribArray( vColor1 );
     glVertexAttribPointer( vColor1, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(HLinePoints)) );
 
+    // Same for Vertical Lines
+    glGenVertexArrays( 1, &vao2 );
+    glBindVertexArray( vao2 );
+
+    GLuint buffer2;
+    glGenBuffers( 1, &buffer2 );
+    glBindBuffer( GL_ARRAY_BUFFER, buffer2 );
+
+    glBufferData( GL_ARRAY_BUFFER, sizeof(VLinePoints) + sizeof(VLineColor), VLinePoints, GL_STATIC_DRAW );
+
+    glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(VLinePoints), VLinePoints );
+    glBufferSubData( GL_ARRAY_BUFFER, sizeof(VLinePoints), sizeof(VLineColor), VLineColor );
+
+    GLuint program2 = InitShader( "vshader.glsl", "fshader.glsl" );
+    glUseProgram( program2 );
+
+    GLuint loc2 = glGetAttribLocation( program2, "vPosition" );
+    glEnableVertexAttribArray( loc2 );
+    glVertexAttribPointer( loc2, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0) );
+
+    GLuint vColor1 = glGetAttribLocation( program2, "vColor" );
+    glEnableVertexAttribArray( vColor2 );
+    glVertexAttribPointer( vColor2, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(VLinePoints)) );
+
     //****************************
 
     glClearColor( 0.0, 0.0, 0.0, 1.0 ); // black background
@@ -189,6 +213,9 @@ display( void )
     //If you want to change the thickness of the lines, this is how:  glLineWidth(5.0);    
     glBindVertexArray( vao1 );
     glDrawArrays( GL_LINES, 0, 42 );
+
+    glBindVertexArray( vao2 );
+    glDrawArrays( GL_LINES, 0, 22 );
 
     //Causes all issued commands to be executed as quickly as they are accepted by the actual rendering engine
     glFlush();
