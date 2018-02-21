@@ -15,8 +15,19 @@ static vec3  base_colors[] = {
 //three triangles
 const int NumPoints = 4;
 
-//and two lines
-const int NumPoints1 = 4;
+//vertex count
+const int NumVertex = (NumVLine-1)*(NumHLine-1);
+
+//line counts
+const int NumVLine = 11;
+const int NumHLine = 21;
+
+// size of a block
+const float BlockWidth = 0.176;
+const float BlockHeight = 0.092;
+// size of the grid
+const float Width = BlockWidth * 10;
+const float Height = BlockHeight * 20;
 
 //vertex array for the triangles and for the lines, respectively
 GLuint vao, vao1;
@@ -26,8 +37,10 @@ vec2 points[NumPoints];
 vec3 colors[NumPoints];
 
 //lines points and colors arrays
-vec2 points1[NumPoints1];
-vec3 colors1[NumPoints1];
+vec2 HLinePoints[NumHLine*2];
+vec2 VLinePoints[NumVLine*2];
+vec3 HLineColor[NumHLine*2];
+vec3 VLineColor[NumVLine*2];
 //----------------------------------------------------------------------------
 
 void
@@ -54,21 +67,16 @@ init( void )
     //***************************
 
     
-    //line starting points and ending points. The first two positions represent one line segment,
-    //while the last two positions represent another line segment.
-    points1[0] = vec2( -1.0, 0.0 );
-    points1[1] = vec2( 1.0, 0.0 );
-
-    points1[2] = vec2( -1.0, -0.5 );
-    points1[3] = vec2( 1.0, -0.5 );
-
-    
-    //lines can have color too!
-    colors1[0] = base_colors[3];
-    colors1[1] = base_colors[3];
-    colors1[2] = base_colors[3];
-    colors1[3] = base_colors[3];
-
+    // initializing Horizontal lines
+    for(int i = 0; i < NumHLine*2; i++){
+        if(i%2 == 0){
+            HLinePoints[i] = ( (-1)*Width/2 , Height/2 - BlockHeight*i );
+        }
+        else{
+            HLinePoints[i] = ( Width/2 , Height/2 - BlockHeight*i );
+        }
+        HLineColor[i] = base_colors[3];
+    }
 
     //Here we create another vertexArrayObject to render some lines. This is intended to be your grid, so since the
     //grid positions never change, you can leave this vertex array object on the initialization.
@@ -82,10 +90,10 @@ init( void )
     glBindBuffer( GL_ARRAY_BUFFER, buffer1 );
     
     //glBufferData( GL_ARRAY_BUFFER, sizeof(points1), points1, GL_STATIC_DRAW );
-    glBufferData( GL_ARRAY_BUFFER, sizeof(points1) + sizeof(colors1), points1, GL_STATIC_DRAW );
+    glBufferData( GL_ARRAY_BUFFER, sizeof(HLinePoints) + sizeof(HLineColor), HLinePoints, GL_STATIC_DRAW );
 
-    glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(points1), points1 );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(points1), sizeof(colors1), colors1 );
+    glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(HLinePoints), HLinePoints );
+    glBufferSubData( GL_ARRAY_BUFFER, sizeof(HLinePoints), sizeof(HLineColor), HLineColor );
 
     // Load shaders and use the resulting shader program
     GLuint program1 = InitShader( "vshader.glsl", "fshader.glsl" );
