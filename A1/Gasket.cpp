@@ -174,7 +174,7 @@ display( void )
     //Draw lines using the second vertex array object. On your tetris code, you probabily want to draw the lines first, then the triangles.
     //If you want to change the thickness of the lines, this is how:  glLineWidth(5.0);    
     glBindVertexArray( vao1 );
-    glDrawArrays( GL_LINES, 0, NumHLine*2 );
+    glDrawArrays( GL_LINES, 0, 42 );
 
     //Causes all issued commands to be executed as quickly as they are accepted by the actual rendering engine
     glFlush();
