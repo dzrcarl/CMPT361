@@ -160,7 +160,7 @@ display( void )
     //Draw triangles
     //Here we are binding back the first vertex array object. Now we can acess all the buffers associated to it and render accordingly
     glBindVertexArray( vao );
-    glDrawArrays( GL_QUADS, 0, NumPoints );
+    glDrawArrays( GL_TRIANGLES, 0, NumPoints );
 
     //Draw lines using the second vertex array object. On your tetris code, you probabily want to draw the lines first, then the triangles.
     //If you want to change the thickness of the lines, this is how:  glLineWidth(5.0);    
