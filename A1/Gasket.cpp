@@ -2,6 +2,7 @@
 // Generated using randomly selected vertices and bisection
 
 #include "Angel.h"
+#include "data.h"
 
 //It is nice to define and use a color pallete on your software. You can put this information on another utility file.
 static vec3  base_colors[] = {
