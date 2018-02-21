@@ -174,6 +174,7 @@ display( void )
 //----------------------------------------------------------------------------
 
 //timed function. We intended to execute this every one second.
+/*
 void rotateDelay(int)
 {
     //mat2 constructor is defined as follows
@@ -210,6 +211,7 @@ void rotateDelay(int)
     //then we can set another identical event in 1000 miliseconds in the future, that is how we keep the triangle rotating
     glutTimerFunc(1000.0, rotateDelay, 0);
 }
+*/
 
 //If you want to use arrows, take a look at this function
 //It works similarly, but you have no acess to the ASCII keys using it. Please see the link below for details.
@@ -295,7 +297,7 @@ main( int argc, char **argv )
 
     //Similarly, we can also bind a function that will be executed 1000 miliseconds later. We bind this to the function rotateDelay.
     // We then bind this to the function "rotateDelay". The 0 in the end is the input of the rotateDelay class, it can only be an integer.
-    glutTimerFunc(1000.0, rotateDelay, 0);
+    // glutTimerFunc(1000.0, rotateDelay, 0);
 
     //Finally, we bind the keyboard events inside the class "keyboard" using the line below
     glutKeyboardFunc( keyboard );
