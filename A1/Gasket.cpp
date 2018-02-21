@@ -36,10 +36,10 @@ init( void )
     
     //Vertex positions for three triangles
     // Three triangles forming a simple Gasket
-    points[0] = vec2( -1.0, -1.0 );
-    points[1] = vec2( 0.0, -1.0 );
-    points[2] = vec2( -1.0, 0.0 );
-    points[3] = vec2( 0.0, 0.0 );
+    points[0] = vec2( 0.5, 0.5 );
+    points[1] = vec2( 0.5, 1.0 );
+    points[2] = vec2( 1.0, 1.0 );
+    points[3] = vec2( 1.0, 0.5 );
 
 
     //color stuff for each vertex of each of the triangles
@@ -142,8 +142,7 @@ display( void )
     // The last parameter is the offset where the data is stored on the buffer.
     GLuint loc = glGetAttribLocation( program, "vPosition" );
     glEnableVertexAttribArray( loc );
-    glVertexAttribPointer( loc, 2, GL_FLOAT, GL_FALSE, 0,
-                           BUFFER_OFFSET(0) );
+    glVertexAttribPointer( loc, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0) );
 
 
     // Likewise, initialize the vertex color attribute.  Once again, we
@@ -152,8 +151,7 @@ display( void )
     //    to determine the correct value.
     GLuint vColor = glGetAttribLocation( program, "vColor" );
     glEnableVertexAttribArray( vColor );
-    glVertexAttribPointer( vColor, 3, GL_FLOAT, GL_FALSE, 0,
-                           BUFFER_OFFSET(sizeof(points)) );
+    glVertexAttribPointer( vColor, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(points)) );
 
 
     glClear( GL_COLOR_BUFFER_BIT );     // clear the window
@@ -162,7 +160,7 @@ display( void )
     //Draw triangles
     //Here we are binding back the first vertex array object. Now we can acess all the buffers associated to it and render accordingly
     glBindVertexArray( vao );
-    glDrawArrays( GL_TRIANGLES, 0, NumPoints );
+    glDrawArrays( GL_QUADS, 0, NumPoints );
 
     //Draw lines using the second vertex array object. On your tetris code, you probabily want to draw the lines first, then the triangles.
     //If you want to change the thickness of the lines, this is how:  glLineWidth(5.0);    
@@ -283,7 +281,7 @@ main( int argc, char **argv )
     glutInitContextProfile( GLUT_CORE_PROFILE );
 
     //Title of your screen, change accordingly
-    glutCreateWindow( "Sierpinski Gasket" );
+    glutCreateWindow( "Gasket" );
 
     // Iff you get a segmentation error at line 34, please uncomment the line below
     glewExperimental = GL_TRUE; 
