@@ -2,6 +2,8 @@
 // Generated using randomly selected vertices and bisection
 
 #include "Angel.h"
+
+using namespace std;
 //#include "data.h"
 
 //It is nice to define and use a color pallete on your software. You can put this information on another utility file.
@@ -26,11 +28,11 @@ const int NumHLine = 21;
 const float BlockWidth = 0.176;
 const float BlockHeight = 0.092;
 // size of the grid
-const float Width = BlockWidth * 10;
-const float Height = BlockHeight * 20;
+const float Width = 1.76;
+const float Height = 1.84;
 
 //vertex array for the triangles and for the lines, respectively
-GLuint vao, vao1;
+GLuint vao, vao1, vao2;
 
 //triangle points and colors arrays
 vec2 points[NumPoints];
@@ -69,15 +71,25 @@ init( void )
     
     // initializing Horizontal lines
     for(int i = 0; i < NumHLine*2; i++){
-        int W = Width/2.0;
-        cout << W << endl;
         if(i%2 == 0){
-            HLinePoints[i] = ( (-1)*Width/2.0 , Height/2.0 - BlockHeight*(i/2) );
+            HLinePoints[i] = vec2( -1*Width/2 , Height/2.0 - BlockHeight*(i/2) );
         }
         else{
-            HLinePoints[i] = ( Width/2.0 , Height/2.0 - BlockHeight*((i-1)/2) );
+            HLinePoints[i] = vec2( Width/2 , Height/2.0 - BlockHeight*((i-1)/2) );
         }
         HLineColor[i] = base_colors[3];
+    }
+
+    // initializing Vertical lines
+    for(int i = 0; i < NumVLine*2; i++){
+        if(i%2 == 0){
+            VLinePoints[i] = vec2( -1*Height/2 , Width/2.0 - BlockWidth*(i/2) );
+        }
+        else{
+            VLinePoints[i] = vec2( Height/2 , Width/2.0 - BlockWidth*((i-1)/2) );
+        }
+	cout << VLinePoints[i] << endl;
+        VLineColor[i] = base_colors[3];
     }
 
     //Here we create another vertexArrayObject to render some lines. This is intended to be your grid, so since the
