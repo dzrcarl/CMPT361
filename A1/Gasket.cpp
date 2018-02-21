@@ -12,7 +12,7 @@ static vec3  base_colors[] = {
 };
 
 //three triangles
-const int NumPoints = 9;
+const int NumPoints = 4;
 
 //and two lines
 const int NumPoints1 = 4;
@@ -38,28 +38,16 @@ init( void )
     // Three triangles forming a simple Gasket
     points[0] = vec2( -1.0, -1.0 );
     points[1] = vec2( 0.0, -1.0 );
-    points[2] = vec2( -0.5, 0.0 );
+    points[2] = vec2( -1.0, 0.0 );
+    points[3] = vec2( 0.0, 0.0 );
 
-    points[3] = vec2( 0.0, -1.0 );
-    points[4] = vec2( 0.5, 0.0 );
-    points[5] = vec2( 1.0, -1.0 );
-
-    points[6] = vec2( 0.0, 1.0 );
-    points[7] = vec2( -0.5, 0.0 );
-    points[8] = vec2( 0.5, 0.0 );
 
     //color stuff for each vertex of each of the triangles
     colors[0] = base_colors[0];
     colors[1] = base_colors[0];
     colors[2] = base_colors[1];
-
     colors[3] = base_colors[1];
-    colors[4] = base_colors[1];
-    colors[5] = base_colors[2];
 
-    colors[6] = base_colors[2];
-    colors[7] = base_colors[2];
-    colors[8] = base_colors[0];
 
 
     //***************************
@@ -105,13 +93,11 @@ init( void )
     // Initialize the vertex position attribute from the vertex shader
     GLuint loc1 = glGetAttribLocation( program1, "vPosition" );
     glEnableVertexAttribArray( loc1 );
-    glVertexAttribPointer( loc1, 2, GL_FLOAT, GL_FALSE, 0,
-                           BUFFER_OFFSET(0) );
+    glVertexAttribPointer( loc1, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0) );
 
     GLuint vColor1 = glGetAttribLocation( program1, "vColor" );
     glEnableVertexAttribArray( vColor1 );
-    glVertexAttribPointer( vColor1, 3, GL_FLOAT, GL_FALSE, 0,
-                           BUFFER_OFFSET(sizeof(points1)) );
+    glVertexAttribPointer( vColor1, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(points1)) );
 
     //****************************
 
