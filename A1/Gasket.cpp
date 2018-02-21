@@ -16,7 +16,7 @@ static vec3  base_colors[] = {
 const int NumPoints = 4;
 
 //vertex count
-const int NumVertex = (NumVLine-1)*(NumHLine-1);
+const int NumVertex = 231;
 
 //line counts
 const int NumVLine = 11;
@@ -106,7 +106,7 @@ init( void )
 
     GLuint vColor1 = glGetAttribLocation( program1, "vColor" );
     glEnableVertexAttribArray( vColor1 );
-    glVertexAttribPointer( vColor1, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(points1)) );
+    glVertexAttribPointer( vColor1, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(HLinePoints)) );
 
     //****************************
 
@@ -174,7 +174,7 @@ display( void )
     //Draw lines using the second vertex array object. On your tetris code, you probabily want to draw the lines first, then the triangles.
     //If you want to change the thickness of the lines, this is how:  glLineWidth(5.0);    
     glBindVertexArray( vao1 );
-    glDrawArrays( GL_LINES, 0, NumPoints1 );
+    glDrawArrays( GL_LINES, 0, NumHLine*2 );
 
     //Causes all issued commands to be executed as quickly as they are accepted by the actual rendering engine
     glFlush();
