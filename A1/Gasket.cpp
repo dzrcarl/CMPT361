@@ -55,18 +55,18 @@ init( void )
     
     //line starting points and ending points. The first two positions represent one line segment,
     //while the last two positions represent another line segment.
-    // points1[0] = vec2( -0.5, 0.0 );
-    // points1[1] = vec2( -1.0, 1.0 );
+    points1[0] = vec2( -1.0, 0.0 );
+    points1[1] = vec2( 1.0, 0.0 );
 
-    // points1[2] = vec2( -1.0, -1.0 );
-    // points1[3] = vec2( 1.0, 1.0 );
+    points1[2] = vec2( -1.0, -1.0 );
+    points1[3] = vec2( 1.0, -1.0 );
 
     
     //lines can have color too!
-    // colors1[0] = base_colors[3];
-    // colors1[1] = base_colors[3];
-    // colors1[2] = base_colors[3];
-    // colors1[3] = base_colors[3];
+    colors1[0] = base_colors[3];
+    colors1[1] = base_colors[3];
+    colors1[2] = base_colors[3];
+    colors1[3] = base_colors[3];
 
 
     //Here we create another vertexArrayObject to render some lines. This is intended to be your grid, so since the
@@ -275,7 +275,7 @@ main( int argc, char **argv )
 
     //Change the size of the screen here. Keep in mind that the coordinates will also change accordingly
     //so, if you want to keep your points on the rendering canvas undisturbed you need a square screen.
-    glutInitWindowSize( 600, 600 );
+    glutInitWindowSize( 300, 600 );
 
     // If you are using freeglut, the next two lines will check if 
     // the code is truly 3.2. Otherwise, comment them out
