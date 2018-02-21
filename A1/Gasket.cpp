@@ -70,10 +70,10 @@ init( void )
     // initializing Horizontal lines
     for(int i = 0; i < NumHLine*2; i++){
         if(i%2 == 0){
-            HLinePoints[i] = ( (-1)*Width/2 , Height/2 - BlockHeight*i );
+            HLinePoints[i] = ( (-1)*Width/2.0 , Height/2.0 - BlockHeight*(i/2) );
         }
         else{
-            HLinePoints[i] = ( Width/2 , Height/2 - BlockHeight*(i-1) );
+            HLinePoints[i] = ( Width/2.0 , Height/2.0 - BlockHeight*((i-1)/2) );
         }
         HLineColor[i] = base_colors[3];
     }
