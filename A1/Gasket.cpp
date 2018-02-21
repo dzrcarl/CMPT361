@@ -5,8 +5,8 @@
 
 //It is nice to define and use a color pallete on your software. You can put this information on another utility file.
 static vec3  base_colors[] = {
-		vec3( 1.0, 0.0, 0.0 ),
-		vec3( 0.0, 1.0, 0.0 ),
+		vec3( 1.0, 0.5, 0.0 ),
+		vec3( 0.5, 1.0, 0.0 ),
 		vec3( 0.0, 0.0, 1.0 ),
 		vec3( 0.0, 0.0, 0.0 )
 };
@@ -36,10 +36,10 @@ init( void )
     
     //Vertex positions for three triangles
     // Three triangles forming a simple Gasket
-    points[0] = vec2( 0.5, 0.5 );
-    points[1] = vec2( 0.5, 1.0 );
-    points[2] = vec2( 1.0, 1.0 );
-    points[3] = vec2( 1.0, 0.5 );
+    points[0] = vec2( -0.5, 0.5 );
+    points[1] = vec2( 0.5, 0.5 );
+    points[2] = vec2( 0.5, -0.5 );
+    points[3] = vec2( -0.5, -0.5 );
 
 
     //color stuff for each vertex of each of the triangles
@@ -55,18 +55,18 @@ init( void )
     
     //line starting points and ending points. The first two positions represent one line segment,
     //while the last two positions represent another line segment.
-    points1[0] = vec2( -0.5, 0.0 );
-    points1[1] = vec2( -1.0, 1.0 );
+    // points1[0] = vec2( -0.5, 0.0 );
+    // points1[1] = vec2( -1.0, 1.0 );
 
-    points1[2] = vec2( -1.0, -1.0 );
-    points1[3] = vec2( 1.0, 1.0 );
+    // points1[2] = vec2( -1.0, -1.0 );
+    // points1[3] = vec2( 1.0, 1.0 );
 
     
     //lines can have color too!
-    colors1[0] = base_colors[3];
-    colors1[1] = base_colors[3];
-    colors1[2] = base_colors[3];
-    colors1[3] = base_colors[3];
+    // colors1[0] = base_colors[3];
+    // colors1[1] = base_colors[3];
+    // colors1[2] = base_colors[3];
+    // colors1[3] = base_colors[3];
 
 
     //Here we create another vertexArrayObject to render some lines. This is intended to be your grid, so since the
