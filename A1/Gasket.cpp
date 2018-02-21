@@ -73,7 +73,7 @@ init( void )
             HLinePoints[i] = ( (-1)*Width/2 , Height/2 - BlockHeight*i );
         }
         else{
-            HLinePoints[i] = ( Width/2 , Height/2 - BlockHeight*i );
+            HLinePoints[i] = ( Width/2 , Height/2 - BlockHeight*(i-1) );
         }
         HLineColor[i] = base_colors[3];
     }
