@@ -38,8 +38,8 @@ init( void )
     // Three triangles forming a simple Gasket
     points[0] = vec2( -0.5, 0.5 );
     points[1] = vec2( 0.5, 0.5 );
-    points[2] = vec2( 0.5, -0.5 );
-    points[3] = vec2( -0.5, -0.5 );
+    points[2] = vec2( -0.5, -0.5 );
+    points[3] = vec2( 0.5, -0.5 );
 
 
     //color stuff for each vertex of each of the triangles
@@ -160,7 +160,7 @@ display( void )
     //Draw triangles
     //Here we are binding back the first vertex array object. Now we can acess all the buffers associated to it and render accordingly
     glBindVertexArray( vao );
-    glDrawArrays( GL_POLYGON, 0, NumPoints );
+    glDrawArrays( GL_TRIANGLE_STRIP, 0, NumPoints );
 
     //Draw lines using the second vertex array object. On your tetris code, you probabily want to draw the lines first, then the triangles.
     //If you want to change the thickness of the lines, this is how:  glLineWidth(5.0);    
