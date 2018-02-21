@@ -69,6 +69,8 @@ init( void )
     
     // initializing Horizontal lines
     for(int i = 0; i < NumHLine*2; i++){
+        int W = Width/2.0;
+        cout << W << endl;
         if(i%2 == 0){
             HLinePoints[i] = ( (-1)*Width/2.0 , Height/2.0 - BlockHeight*(i/2) );
         }
