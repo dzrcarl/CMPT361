@@ -45,6 +45,7 @@ const float Height = 1.84;
 
 const int NumOfColor = 7;
 
+int grid[20][10] = {-1};
 const bool shapes[28][4] =
 {
     {0, 0, 0, 0},
@@ -184,7 +185,7 @@ void addTile( void ){
 void
 init( void )
 {
-    int grid[20][10] = {-1};
+
     //Just some hard coded data
     int randColor = rand() % NumOfColor;
     int randShape = rand() % 7;
@@ -203,7 +204,7 @@ init( void )
         for (int j = 0; j < 4; j++)
         {
             if(loadShape[i][j]){
-                block[1+i][2+j] = randColor;
+                grid[1+i][2+j] = randColor;
             }
         }
     }
@@ -263,12 +264,12 @@ display( void )
     {
         for (int j = 0; j < 10; ++j)
         {
-            if(block[i][j] != -1){
+            if(grid[i][j] != -1){
                 vec2 vecPoints[4];
-                vecPoints[0] = ( -Width + j * BlockWidth, -Height + i * BlockHeight );
-                vecPoints[1] = ( -Width + j * BlockWidth, -Height + (i+1) * BlockHeight );
-                vecPoints[2] = ( -Width + (j+1) * BlockWidth, -Height + i * BlockHeight );
-                vecPoints[3] = ( -Width + (j+1) * BlockWidth, -Height + (i+1) * BlockHeight );
+                vecPoints[0] = ( (-1)*Width + j * BlockWidth, (-1)*Height + i * BlockHeight );
+                vecPoints[1] = ( (-1)*Width + j * BlockWidth, (-1)*Height + (i+1) * BlockHeight );
+                vecPoints[2] = ( (-1)*Width + (j+1) * BlockWidth, (-1)*Height + i * BlockHeight );
+                vecPoints[3] = ( (-1)*Width + (j+1) * BlockWidth, (-1)*Height + (i+1) * BlockHeight );
                 glBufferSubData( GL_ARRAY_BUFFER, 0 + renderCounts * 4, sizeof(vecPoints), vecPoints );
 
                 vec3 selectedColor = tile_colors[block[i][j]];
