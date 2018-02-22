@@ -29,7 +29,7 @@ const int NumPoints = 4;
 //vertex count
 const int TotalNumVertexTile = 16;
 const int TotalNumVertexGrid = 800;
-const int TotalNumVertex = TotalNumVertexGrid + TotalNumVertexTile;
+const int TotalNumVertex = 816;
 const int ColorOffset = TotalNumVertex*sizeof(vec2);
 
 //line counts
