@@ -189,6 +189,8 @@ init( void )
     //Just some hard coded data
     int randColor = rand() % NumOfColor;
     int randShape = rand() % 7;
+    cout << randColor << endl;
+    cout << randShape << endl;
 
     // loading shape into grid
     bool loadShape[4][4];
@@ -209,22 +211,6 @@ init( void )
         }
     }
     
-    //Vertex positions for three triangles
-    // Three triangles forming a simple Gasket
-    // points[0] = vec2( -0.17, 0.09 );
-    // points[1] = vec2( 0.17, 0.09 );
-    // points[2] = vec2( -0.17, -0.09 );
-    // points[3] = vec2( 0.17, -0.09 );
-
-
-    //color stuff for each vertex of each of the triangles
-    // colors[0] = base_colors[0];
-    // colors[1] = base_colors[0];
-    // colors[2] = base_colors[1];
-    // colors[3] = base_colors[1];
-
-
-
     //***************************
 
     DrawGrid();
@@ -270,11 +256,11 @@ display( void )
                 vecPoints[1] = ( (-1)*Width + j * BlockWidth, (-1)*Height + (i+1) * BlockHeight );
                 vecPoints[2] = ( (-1)*Width + (j+1) * BlockWidth, (-1)*Height + i * BlockHeight );
                 vecPoints[3] = ( (-1)*Width + (j+1) * BlockWidth, (-1)*Height + (i+1) * BlockHeight );
-                glBufferSubData( GL_ARRAY_BUFFER, 0 + renderCounts * 4, sizeof(vecPoints), vecPoints );
+                glBufferSubData( GL_ARRAY_BUFFER, (0 + renderCounts * 4)*sizeof(vec2), sizeof(vecPoints), vecPoints );
 
                 vec3 selectedColor = tile_colors[grid[i][j]];
                 vec3 vecColors[4] = { selectedColor, selectedColor, selectedColor, selectedColor};
-                glBufferSubData( GL_ARRAY_BUFFER, sizeof(points), sizeof(vecColors), vecColors );
+                glBufferSubData( GL_ARRAY_BUFFER, ColorOffset + (renderCounts * 4)*sizeof(vec3), sizeof(vecColors), vecColors );
             }
         }
     }
