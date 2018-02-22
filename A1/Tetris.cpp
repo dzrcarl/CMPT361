@@ -199,7 +199,7 @@ init( void )
         for (int j = 0; j < 4; j++)
         {
             loadShape[i][j] = shapes[randShape*4 + i][j];
-            cout << "loading: " << i << " " << j << "as: " << shapes[randShape*4 + i][j] << endl;
+            cout << "loading: " << i << " " << j << " as: " << shapes[randShape*4 + i][j] << endl;
         }
     }
     for (int i = 0; i < 4; i++)
@@ -248,6 +248,7 @@ display( void )
     //   the same as the size (in bytes) of the points array, which is
     //   returned from "sizeof(points)".
     int renderCounts = 0;
+    cout << "start writing buff" << endl;
     for (int i = 0; i < 20; ++i)
     {
         for (int j = 0; j < 10; ++j)
