@@ -43,7 +43,6 @@ const float BlockHeight = 0.092;
 const float Width = 1.76;
 const float Height = 1.84;
 
-int grid[20][10] = {-1};
 const int NumOfColor = 7;
 
 const bool shapes[28][4] =
@@ -185,6 +184,7 @@ void addTile( void ){
 void
 init( void )
 {
+    int grid[20][10] = {-1};
     //Just some hard coded data
     int randColor = rand() % NumOfColor;
     int randShape = rand() % 7;
