@@ -199,7 +199,7 @@ init( void )
         for (int j = 0; j < 4; j++)
         {
             loadShape[i][j] = shapes[randShape*4 + i][j];
-            cout << "loading: " << i << " " << j << " as: " << shapes[randShape*4 + i][j] << endl;
+            //cout << "loading: " << i << " " << j << " as: " << shapes[randShape*4 + i][j] << endl;
         }
     }
     for (int i = 0; i < 4; i++)
@@ -208,7 +208,7 @@ init( void )
         {
             if(loadShape[i][j]){
                 grid[1+i][2+j] = randColor;
-                cout << "adding color: " << i << " " << j << endl;
+                //cout << "adding color: " << i << " " << j << endl;
             }
         }
     }
@@ -219,7 +219,7 @@ init( void )
 
     //****************************
 
-    glClearColor( 0.0, 0.0, 0.0, 1.0 ); // black background
+    glClearColor( 0.3, 0.3, 0.3, 1.0 ); // black background
 }
 
 //----------------------------------------------------------------------------
@@ -227,7 +227,6 @@ init( void )
 void
 display( void )
 {
-
     // Create and bind a vertex array object
     glGenVertexArrays( 1, &vao );
     glBindVertexArray( vao );
@@ -242,6 +241,7 @@ display( void )
     glBufferData( GL_ARRAY_BUFFER, sizeof(points)+sizeof(colors) , NULL, GL_STATIC_DRAW );
     glBufferSubData( GL_ARRAY_BUFFER, 0, TotalNumVertex*sizeof(vec2), points );
     glBufferSubData( GL_ARRAY_BUFFER, ColorOffset, TotalNumVertex*sizeof(vec3), colors );
+    
 
     // Next, we load the real data in parts.  We need to specify the
     //   correct byte offset for placing the color data after the point
@@ -265,7 +265,7 @@ display( void )
                 vec3 selectedColor = tile_colors[grid[i][j]];
                 vec3 vecColors[4] = { selectedColor, selectedColor, selectedColor, selectedColor};
                 glBufferSubData( GL_ARRAY_BUFFER, ColorOffset + (renderCounts * 4)*sizeof(vec3), sizeof(vecColors), vecColors );
-                cout << "painting: " << i << " " << j << " color is: " << grid[i][j] << endl;
+                cout << "painting: " << i << " " << j << " color is: " << selectedColor << endl;
             }
             //cout << "painting: " << i << " " << j << endl;
         }
@@ -289,7 +289,7 @@ display( void )
     //    to determine the correct value.
     GLuint vColor = glGetAttribLocation( program, "vColor" );
     glEnableVertexAttribArray( vColor );
-    glVertexAttribPointer( vColor, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(points)) );
+    glVertexAttribPointer( vColor, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(ColorOffset) );
 
 
     glClear( GL_COLOR_BUFFER_BIT );     // clear the window
