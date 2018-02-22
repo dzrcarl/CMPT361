@@ -199,7 +199,7 @@ init( void )
         for (int j = 0; j < 4; j++)
         {
             loadShape[i][j] = shapes[randShape*4 + i][j];
-            cout << "loading: " << i << " " << j << endl;
+            cout << "loading: " << i << " " << j << "as: " << shapes[randShape*4 + i][j] << endl;
         }
     }
     for (int i = 0; i < 4; i++)
