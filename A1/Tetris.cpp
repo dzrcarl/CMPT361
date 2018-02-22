@@ -272,7 +272,7 @@ display( void )
                 vecPoints[3] = ( (-1)*Width + (j+1) * BlockWidth, (-1)*Height + (i+1) * BlockHeight );
                 glBufferSubData( GL_ARRAY_BUFFER, 0 + renderCounts * 4, sizeof(vecPoints), vecPoints );
 
-                vec3 selectedColor = tile_colors[block[i][j]];
+                vec3 selectedColor = tile_colors[grid[i][j]];
                 vec3 vecColors[4] = { selectedColor, selectedColor, selectedColor, selectedColor};
                 glBufferSubData( GL_ARRAY_BUFFER, sizeof(points), sizeof(vecColors), vecColors );
             }
