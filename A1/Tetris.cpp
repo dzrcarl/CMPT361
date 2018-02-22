@@ -199,6 +199,7 @@ init( void )
         for (int j = 0; j < 4; j++)
         {
             loadShape[i][j] = shapes[randShape*4 + i][j];
+            cout << "loading: " << i << " " << j << endl;
         }
     }
     for (int i = 0; i < 4; i++)
@@ -207,6 +208,7 @@ init( void )
         {
             if(loadShape[i][j]){
                 grid[1+i][2+j] = randColor;
+                cout << "adding color: " << i << " " << j << endl;
             }
         }
     }
@@ -262,6 +264,7 @@ display( void )
                 vec3 vecColors[4] = { selectedColor, selectedColor, selectedColor, selectedColor};
                 glBufferSubData( GL_ARRAY_BUFFER, ColorOffset + (renderCounts * 4)*sizeof(vec3), sizeof(vecColors), vecColors );
             }
+            cout << "painting: " << i << " " << j << endl;
         }
     }
     
