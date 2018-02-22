@@ -241,14 +241,13 @@ display( void )
     //glBufferData( GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW );
     glBufferData( GL_ARRAY_BUFFER, sizeof(points)+sizeof(colors) , points, GL_STATIC_DRAW );
 
-
     // Next, we load the real data in parts.  We need to specify the
     //   correct byte offset for placing the color data after the point
     //   data in the buffer.  Conveniently, the byte offset we need is
     //   the same as the size (in bytes) of the points array, which is
     //   returned from "sizeof(points)".
     int renderCounts = 0;
-    cout << "start writing buff" << endl;
+
     for (int i = 0; i < 20; ++i)
     {
         for (int j = 0; j < 10; ++j)
