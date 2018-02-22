@@ -21,7 +21,7 @@ static vec3 tile_colors[] = {
     vec3( 0.53, 0.22, 0.75 ),
     vec3( 0.25, 0.36, 0.76 ),
     vec3( 1.0, 0.82, 0.42 )
-}
+};
 
 //three triangles
 const int NumPoints = 4;
