@@ -239,7 +239,9 @@ display( void )
     
 
     //glBufferData( GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW );
-    glBufferData( GL_ARRAY_BUFFER, sizeof(points)+sizeof(colors) , points, GL_STATIC_DRAW );
+    glBufferData( GL_ARRAY_BUFFER, sizeof(points)+sizeof(colors) , NULL, GL_STATIC_DRAW );
+    glBufferSubData( GL_ARRAY_BUFFER, 0, TotalNumVertex*sizeof(vec2), points );
+    glBufferSubData( GL_ARRAY_BUFFER, ColorOffset, TotalNumVertex*sizeof(vec3), colors );
 
     // Next, we load the real data in parts.  We need to specify the
     //   correct byte offset for placing the color data after the point
