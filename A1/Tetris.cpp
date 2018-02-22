@@ -1,5 +1,4 @@
-// Two-Dimensional Sierpinski Gasket       
-// Generated using randomly selected vertices and bisection
+
 
 #include "Angel.h"
 
@@ -14,11 +13,22 @@ static vec3  base_colors[] = {
 		vec3( 1.0, 1.0, 1.0 )  // white
 };
 
+static vec3 tile_colors[] = {
+    vec3( 1.0, 0.34, 0.24 ),
+    vec3( 1.0, 0.73, 0.24 ),
+    vec3( 0.24, 0.42, 0.75 ),
+    vec3( 0.2, 0.8, 0.38 ),
+    vec3( 0.53, 0.22, 0.75 ),
+    vec3( 0.25, 0.36, 0.76 ),
+    vec3( 1.0, 0.82, 0.42 )
+}
+
 //three triangles
 const int NumPoints = 4;
 
 //vertex count
-const int NumVertex = 231;
+const int TotalNumVertex = 800;
+const int ColorOffset = TotalNumVertex*sizeof(vec2);
 
 //line counts
 const int NumVLine = 11;
@@ -30,6 +40,47 @@ const float BlockHeight = 0.092;
 // size of the grid
 const float Width = 1.76;
 const float Height = 1.84;
+
+int grid[20][10];
+const int NumOfColor = 7;
+
+const bool shapes[28][4] =
+{
+    {0, 0, 0, 0},
+    {0, 1, 1, 0},
+    {0, 1, 1, 0},
+    {0, 0, 0, 0},
+    
+    {0, 0, 0, 0},
+    {1, 1, 1, 1},
+    {0, 0, 0, 0},
+    {0, 0, 0, 0},
+    
+    {0, 0, 0, 0},
+    {0, 0, 1, 1},
+    {0, 1, 1, 0},
+    {0, 0, 0, 0},
+    
+    {0, 0, 0, 0},
+    {0, 1, 1, 0},
+    {0, 0, 1, 1},
+    {0, 0, 0, 0},
+    
+    {0, 0, 0, 0},
+    {0, 1, 1, 1},
+    {0, 1, 0, 0},
+    {0, 0, 0, 0},
+    
+    {0, 0, 0, 0},
+    {0, 1, 1, 1},
+    {0, 0, 0, 1},
+    {0, 0, 0, 0},
+    
+    {0, 0, 0, 0},
+    {0, 1, 1, 1},
+    {0, 0, 1, 0},
+    {0, 0, 0, 0},
+};
 
 //vertex array for the triangles and for the lines, respectively
 GLuint vao, vao1, vao2;
@@ -43,32 +94,10 @@ vec2 HLinePoints[NumHLine*2];
 vec2 VLinePoints[NumVLine*2];
 vec3 HLineColor[NumHLine*2];
 vec3 VLineColor[NumVLine*2];
+
 //----------------------------------------------------------------------------
 
-void
-init( void )
-{
-    //Just some hard coded data
-    
-    //Vertex positions for three triangles
-    // Three triangles forming a simple Gasket
-    points[0] = vec2( -0.17, 0.09 );
-    points[1] = vec2( 0.17, 0.09 );
-    points[2] = vec2( -0.17, -0.09 );
-    points[3] = vec2( 0.17, -0.09 );
-
-
-    //color stuff for each vertex of each of the triangles
-    colors[0] = base_colors[0];
-    colors[1] = base_colors[0];
-    colors[2] = base_colors[1];
-    colors[3] = base_colors[1];
-
-
-
-    //***************************
-
-    
+void DrawGrid( void ){
     // initializing Horizontal lines
     for(int i = 0; i < NumHLine*2; i++){
         if(i%2 == 0){
@@ -88,7 +117,7 @@ init( void )
         else{
             VLinePoints[i] = vec2( Width/2.0 - BlockWidth*((i-1)/2), Height/2 );
         }
-	cout << VLinePoints[i] << endl;
+    cout << VLinePoints[i] << endl;
         VLineColor[i] = base_colors[3];
     }
 
@@ -145,6 +174,36 @@ init( void )
     GLuint vColor2 = glGetAttribLocation( program2, "vColor" );
     glEnableVertexAttribArray( vColor2 );
     glVertexAttribPointer( vColor2, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(sizeof(VLinePoints)) );
+}
+
+void addTile( void ){
+
+}
+
+void
+init( void )
+{
+    //Just some hard coded data
+    
+    //Vertex positions for three triangles
+    // Three triangles forming a simple Gasket
+    points[0] = vec2( -0.17, 0.09 );
+    points[1] = vec2( 0.17, 0.09 );
+    points[2] = vec2( -0.17, -0.09 );
+    points[3] = vec2( 0.17, -0.09 );
+
+
+    //color stuff for each vertex of each of the triangles
+    colors[0] = base_colors[0];
+    colors[1] = base_colors[0];
+    colors[2] = base_colors[1];
+    colors[3] = base_colors[1];
+
+
+
+    //***************************
+
+    DrawGrid();
 
     //****************************
 
@@ -204,7 +263,7 @@ display( void )
     glClear( GL_COLOR_BUFFER_BIT );     // clear the window
     
 
-    //Draw triangles
+    //Draw squares
     //Here we are binding back the first vertex array object. Now we can acess all the buffers associated to it and render accordingly
     glBindVertexArray( vao );
     glDrawArrays( GL_TRIANGLE_STRIP, 0, NumPoints );
