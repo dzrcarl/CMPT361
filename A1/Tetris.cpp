@@ -265,8 +265,9 @@ display( void )
                 vec3 selectedColor = tile_colors[grid[i][j]];
                 vec3 vecColors[4] = { selectedColor, selectedColor, selectedColor, selectedColor};
                 glBufferSubData( GL_ARRAY_BUFFER, ColorOffset + (renderCounts * 4)*sizeof(vec3), sizeof(vecColors), vecColors );
+                cout << "painting: " << i << " " << j << " color is: " << grid[i][j] << endl;
             }
-            cout << "painting: " << i << " " << j << endl;
+            //cout << "painting: " << i << " " << j << endl;
         }
     }
     
