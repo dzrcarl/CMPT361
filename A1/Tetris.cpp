@@ -27,7 +27,9 @@ static vec3 tile_colors[] = {
 const int NumPoints = 4;
 
 //vertex count
-const int TotalNumVertex = 800;
+const int TotalNumVertexTile = 16;
+const int TotalNumVertexGrid = 800;
+const int TotalNumVertex = TotalNumVertexGrid + TotalNumVertexTile;
 const int ColorOffset = TotalNumVertex*sizeof(vec2);
 
 //line counts
@@ -41,7 +43,7 @@ const float BlockHeight = 0.092;
 const float Width = 1.76;
 const float Height = 1.84;
 
-int grid[20][10];
+int grid[20][10] = -1;
 const int NumOfColor = 7;
 
 const bool shapes[28][4] =
@@ -86,8 +88,8 @@ const bool shapes[28][4] =
 GLuint vao, vao1, vao2;
 
 //triangle points and colors arrays
-vec2 points[NumPoints];
-vec3 colors[NumPoints];
+vec2 points[TotalNumVertex];
+vec3 colors[TotalNumVertex];
 
 //lines points and colors arrays
 vec2 HLinePoints[NumHLine*2];
@@ -117,7 +119,7 @@ void DrawGrid( void ){
         else{
             VLinePoints[i] = vec2( Width/2.0 - BlockWidth*((i-1)/2), Height/2 );
         }
-    cout << VLinePoints[i] << endl;
+    //cout << VLinePoints[i] << endl;
         VLineColor[i] = base_colors[3];
     }
 
@@ -184,20 +186,34 @@ void
 init( void )
 {
     //Just some hard coded data
+    int randColor = randint() % NumOfColor;
+    int randShape = randint() % 7;
+
+    // loading shape into grid
+    bool loadShape[][] = shapes[randShape*4][4];
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            if(loadShape[i][j]){
+                block[1+i][2+j] = randColor;
+            }
+        }
+    }
     
     //Vertex positions for three triangles
     // Three triangles forming a simple Gasket
-    points[0] = vec2( -0.17, 0.09 );
-    points[1] = vec2( 0.17, 0.09 );
-    points[2] = vec2( -0.17, -0.09 );
-    points[3] = vec2( 0.17, -0.09 );
+    // points[0] = vec2( -0.17, 0.09 );
+    // points[1] = vec2( 0.17, 0.09 );
+    // points[2] = vec2( -0.17, -0.09 );
+    // points[3] = vec2( 0.17, -0.09 );
 
 
     //color stuff for each vertex of each of the triangles
-    colors[0] = base_colors[0];
-    colors[1] = base_colors[0];
-    colors[2] = base_colors[1];
-    colors[3] = base_colors[1];
+    // colors[0] = base_colors[0];
+    // colors[1] = base_colors[0];
+    // colors[2] = base_colors[1];
+    // colors[3] = base_colors[1];
 
 
 
@@ -227,7 +243,7 @@ display( void )
     
 
     //glBufferData( GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW );
-    glBufferData( GL_ARRAY_BUFFER, sizeof(points) + sizeof(colors), points, GL_STATIC_DRAW );
+    glBufferData( GL_ARRAY_BUFFER, sizeof(points)+sizeof(colors) , points, GL_STATIC_DRAW );
 
 
     // Next, we load the real data in parts.  We need to specify the
@@ -235,10 +251,26 @@ display( void )
     //   data in the buffer.  Conveniently, the byte offset we need is
     //   the same as the size (in bytes) of the points array, which is
     //   returned from "sizeof(points)".
-    glBufferSubData( GL_ARRAY_BUFFER, 0, sizeof(points), points );
-    glBufferSubData( GL_ARRAY_BUFFER, sizeof(points), sizeof(colors), colors );
-    
+    int renderCounts = 0;
+    for (int i = 0; i < 20; ++i)
+    {
+        for (int j = 0; j < 10; ++j)
+        {
+            if(block[i][j] != -1){
+                vec2 vecPoints[4];
+                vPoints[0] = ( -Width + j * BlockWidth, -Height + i * BlockHeight );
+                vPoints[1] = ( -Width + j * BlockWidth, -Height + (i+1) * BlockHeight );
+                vPoints[2] = ( -Width + (j+1) * BlockWidth, -Height + i * BlockHeight );
+                vPoints[3] = ( -Width + (j+1) * BlockWidth, -Height + (i+1) * BlockHeight );
+                glBufferSubData( GL_ARRAY_BUFFER, 0 + renderCounts * 4, sizeof(vecPoints), vecPoints );
 
+                vec3 selectedColor = tile_colors[block[i][j]];
+                vec3 vecColors[4] = { selectedColor, selectedColor, selectedColor, selectedColor};
+                glBufferSubData( GL_ARRAY_BUFFER, sizeof(points), sizeof(vecColors), vecColors );
+            }
+        }
+    }
+    
     // Load shaders and use the resulting shader program
     GLuint program = InitShader( "vshader.glsl", "fshader.glsl" );
     glUseProgram( program );
@@ -266,7 +298,7 @@ display( void )
     //Draw squares
     //Here we are binding back the first vertex array object. Now we can acess all the buffers associated to it and render accordingly
     glBindVertexArray( vao );
-    glDrawArrays( GL_TRIANGLE_STRIP, 0, NumPoints );
+    glDrawArrays( GL_TRIANGLE_STRIP, 0, TotalNumVertex );
 
     //Draw lines using the second vertex array object. On your tetris code, you probabily want to draw the lines first, then the triangles.
     //If you want to change the thickness of the lines, this is how:  glLineWidth(5.0);    
